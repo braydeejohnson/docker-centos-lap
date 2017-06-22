@@ -15,6 +15,9 @@ fi
 # Set PHP timezone
 /usr/bin/sed -i "s/\;date\.timezone\ \=/date\.timezone\ \=\ ${DATE_TIMEZONE}/" /etc/php.ini
 
+# Update Xdebug host
+/usr/bin/sed -i "s|xdebug.remote_host.*|xdebug.remote_host = ${XDEBUG_REMOTE_HOST}|" /etc/php.ini
+
 # Run Postfix
 2>/dev/null /usr/sbin/postfix stop
 /usr/sbin/postfix start
@@ -26,3 +29,4 @@ if [ $LOG_LEVEL == 'debug' ]; then
 else
     &>/dev/null /usr/sbin/apachectl -DFOREGROUND -k start
 fi
+
